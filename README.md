@@ -94,7 +94,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 		"issuer": "did:sov:WRfXPg8dantKVubE3HX8pw",
 		"issued": "2010-01-01",
 		"claim": {
-			"org": "did:sov:1234567890",
+			"id": "did:sov:1234567890",
 			"management": "did:v1:test:nym:3AEJTDMSxDDQpyUftjuoeZ2Bazp4Bswj1ce7FJGybCUu"
 		},
 		"proof": {
