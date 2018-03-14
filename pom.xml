@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.bcgov.didauth</groupId>
 	<artifactId>did-auth-relying-party</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>did-auth-relying-party</name>
 
@@ -38,52 +38,57 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
-				<executions>
-					<execution>
-						<id>execution</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.0.M1</version>
 				<configuration>
-					<includeScope>runtime</includeScope>
+					<jettyConfig>
+						${basedir}/src/test/resources/jetty.xml
+					</jettyConfig>
+					<jettyEnvXml>
+						${basedir}/src/test/resources/jetty-env.xml
+					</jettyEnvXml>
+					<contextPath>/</contextPath>
+					<useTestClasspath>true</useTestClasspath>
+					<systemProperties>
+						<systemProperty>
+							<name>jetty.port</name>
+							<value>8080</value>
+						</systemProperty>
+						<systemProperty>
+							<name>slf4j</name>
+							<value>true</value>
+						</systemProperty>
+						<systemProperty>
+							<name>log4j.configuration</name>
+							<value>file:${basedir}/src/test/resources/log4j.properties</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.jolira</groupId>
-				<artifactId>onejar-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<configuration>
-							<mainClass>ca.bcgov.didauth.rp.DIDAuthRP</mainClass>
-							<attachToBuild>true</attachToBuild>
-						</configuration>
-						<goals>
-							<goal>one-jar</goal>
-						</goals>
-					</execution>
-				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+						<version>1.7.5</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>jcl-over-slf4j</artifactId>
+						<version>1.7.5</version>
+						<scope>compile</scope>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+						<version>1.7.5</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 
@@ -92,10 +97,10 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.10</version>
-			<scope>test</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -116,14 +121,14 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>decentralized-identity</groupId>
-			<artifactId>uni-resolver-client</artifactId>
+			<groupId>fi.trustnet</groupId>
+			<artifactId>verifiable-credentials-java</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

@@ -23,6 +23,14 @@ RUN cd /opt/universal-resolver/implementations/java && mvn install -N -DskipTest
 RUN cd /opt/universal-resolver/implementations/java/uni-resolver-core && mvn install -N -DskipTests
 RUN cd /opt/universal-resolver/implementations/java/uni-resolver-client && mvn install -N -DskipTests
 
+RUN cd /opt/ && git clone https://github.com/WebOfTrustInfo/ld-signatures-java.git
+RUN cd /opt/ld-signatures-java && mvn clean
+RUN cd /opt/ld-signatures-java && mvn install -N -DskipTests
+
+RUN cd /opt/ && git clone https://github.com/TrustNetFI/verifiable-credentials-java.git
+RUN cd /opt/verifiable-credentials-java && mvn clean
+RUN cd /opt/verifiable-credentials-java && mvn install -N -DskipTests
+
 # build did-auth-relying-party
 
 ADD . /opt/did-auth-relying-party

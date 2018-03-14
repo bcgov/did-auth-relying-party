@@ -60,7 +60,7 @@ This is a Verifiable Credential issued by VON that an "Org Manager" is authorize
 
 **Org DID:** `did:sov:1234567890`
 
-**Org Manager DID:** `did:sov:WRfXPg8dantKVubE3HX8pw`
+**Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
 	{
 		"type": ["Credential"],
@@ -68,7 +68,7 @@ This is a Verifiable Credential issued by VON that an "Org Manager" is authorize
 		"issued": "2010-01-01",
 		"claim": {
 			"id": "did:sov:1234567890",
-			"management": "did:sov:WRfXPg8dantKVubE3HX8pw"
+			"management": "did:sov:DavnUKB3kjn7VmVZXzEDL7"
 		},
 		"proof": {
 			"type": "Ed25519Signature2018",
@@ -85,13 +85,13 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 
 **Org DID:** `did:sov:1234567890`
 
-**Org Manager DID:** `did:sov:WRfXPg8dantKVubE3HX8pw`
+**Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
 **Org Delegate DID:** `did:v1:test:nym:3AEJTDMSxDDQpyUftjuoeZ2Bazp4Bswj1ce7FJGybCUu`
 
 	{
 		"type": ["Credential"],
-		"issuer": "did:sov:WRfXPg8dantKVubE3HX8pw",
+		"issuer": "did:sov:DavnUKB3kjn7VmVZXzEDL7",
 		"issued": "2010-01-01",
 		"claim": {
 			"id": "did:sov:1234567890",
@@ -100,7 +100,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 		"proof": {
 			"type": "Ed25519Signature2018",
 			"created": "2018-01-01T21:19:10Z",
-			"creator": "did:sov:WRfXPg8dantKVubE3HX8pw#keys-1",
+			"creator": "did:sov:DavnUKB3kjn7VmVZXzEDL7#keys-1",
 			"nonce": "c0ae1c8e-c7e7-469f-b252-86e6a0e7387e",
 			"signatureValue": "..."
 		}
