@@ -1,12 +1,20 @@
-# DID Auth Relying Party Service
+# DID Auth relying party
 
 This is a DID Auth relying party service that can verify incoming DID Auth messages expressed as [Verifiable Credentials](https://w3c.github.io/vc-data-model/) based on [Decentralized Identifiers](https://w3c-ccg.github.io/did-spec/).
+
+DID Auth browser plugin:
+
+ * https://github.com/peacekeeper/did-auth-extension
 
 For use in DID-based authentication and authorization scenarios:
 
  * https://bcdevexchange.org/opportunities/opp-initial-reference-implementation-of-decentralized-authentication--did-auth--and-authorization-mechanisms
 
-This is based on ongoing work on DID Auth:
+Example DID Auth relying party:
+
+ * https://did-auth-relying-party.danubetech.com/
+
+Ongoing work on DID Auth:
 
  * https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust-spring2018/blob/master/draft-documents/did_auth_draft.md
  * https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust-spring2018/blob/master/topics-and-advance-readings/DID%20Auth:%20Scope,%20Formats,%20and%20Protocols.md

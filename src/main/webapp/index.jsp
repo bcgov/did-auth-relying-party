@@ -9,7 +9,7 @@
 
 		<meta charset="utf-8">
 		<base href="/" />
-		<title>Example DID Auth RP</title>
+		<title>DID Auth Example Relying Party</title>
 
 		<style>
 			* { font-family: sans; }
@@ -43,6 +43,10 @@
 	<body>
 
 		<h1>DID Auth Example</h1>
+		<p>This is an example DID Auth relying party.<p>
+		<p>It requires the DID Auth browser plugin to be installed in Firefox:<br>
+		<a href="https://github.com/peacekeeper/did-auth-relying-party">https://github.com/peacekeeper/did-auth-extension</a></p>
+
 		<img src="did-auth-icon.png" align="middle">
 		<button onclick="onButtonClick()">DID Auth</button>
 		<hr noshade>
