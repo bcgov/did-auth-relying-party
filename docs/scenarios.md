@@ -4,19 +4,19 @@
 
 This is simply a self-asserted Verifiable Credential by an identity owner to authenticate their DID.
 
-**Admin DID:** `did:btcr:xkrn-xzcr-qqlv-j6sl`
+**Admin DID:** `did:btcr:xs95-wzv8-qqte-jz88`
 
 	{
 		"type": ["Credential", "DidAuthCredential"],
-		"issuer": "did:btcr:xkrn-xzcr-qqlv-j6sl",
+		"issuer": "did:btcr:xs95-wzv8-qqte-jz88",
 		"issued": "2010-01-01",
 		"claim": {
-			"id": "did:btcr:xkrn-xzcr-qqlv-j6sl",
-			"publicKey": "did:btcr:xkrn-xzcr-qqlv-j6sl#keys-1"
+			"id": "did:btcr:xs95-wzv8-qqte-jz88",
+			"publicKey": "did:btcr:xs95-wzv8-qqte-jz88#keys-1"
 		},
 		"proof": {
 			"type": "Secp256k1Signature2018",
-			"creator": "did:btcr:xkrn-xzcr-qqlv-j6sl#keys-1",
+			"creator": "did:btcr:xs95-wzv8-qqte-jz88#keys-1",
 			"created": "2018-01-01T21:19:10Z",
 			"nonce": "...",
 			"signatureValue": "..."
@@ -58,7 +58,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 
 **Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
-**Org Delegate DID:** `did:v1:test:nym:3AEJTDMSxDDQpyUftjuoeZ2Bazp4Bswj1ce7FJGybCUu`
+**Org Delegate DID:** `did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI`
 
 	{
 		"type": ["Credential"],
@@ -66,7 +66,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 		"issued": "2010-01-01",
 		"claim": {
 			"id": "did:sov:1234567890",
-			"management": "did:v1:test:nym:3AEJTDMSxDDQpyUftjuoeZ2Bazp4Bswj1ce7FJGybCUu"
+			"management": "did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI"
 		},
 		"proof": {
 			"type": "Ed25519Signature2018",
