@@ -45,4 +45,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 8080
 
-CMD "/opt/did-auth-relying-party/run.sh"
+CMD "/opt/did-auth-relying-party/Docker-run.sh"
