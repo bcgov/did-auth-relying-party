@@ -41,6 +41,13 @@ DID Auth relying party sample deployment: https://did-auth-relying-party.danubet
 
 ## Deployment (Local Development)
 
+First, build the following Maven dependencies:
+
+ * https://github.com/WebOfTrustInfo/ld-signatures-java
+ * https://github.com/TrustNetFI/verifiable-credentials-java
+ * https://github.com/WebOfTrustInfo/txref-conversion-java.git
+ * https://github.com/decentralized-identity/universal-resolver.git
+
 Build with Maven:
 
 	mvn clean install jetty:run
