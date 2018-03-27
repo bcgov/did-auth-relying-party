@@ -1,6 +1,7 @@
 package ca.bcgov.didauth.rp;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -12,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.utils.JsonUtils;
 
 import fi.trustnet.verifiablecredentials.VerifiableCredential;
+import uniresolver.ResolutionException;
 
 public class CallbackServlet extends HttpServlet {
 
@@ -31,13 +34,32 @@ public class CallbackServlet extends HttpServlet {
 		ArrayList<VerifiableCredential> vcs = new ArrayList<VerifiableCredential> ();
 		ArrayList<VerifiableCredential> authorizations = new ArrayList<VerifiableCredential> ();
 
-		// interpret Verifiable Credentials
+		// interpret and verify Verifiable Credentials
 
 		for (LinkedHashMap<String, Object> jsonLdObject : jsonArray) {
 
 			VerifiableCredential vc = Interpretation.interpretCredential(VerifiableCredential.fromJsonLdObject(jsonLdObject));
 			if (vc == null) continue;
+
+			// verify
+
+			try {
+
+				boolean verify = Verification.verify(vc);
+				if (! verify) throw new GeneralSecurityException("Invalid signature.");
+			} catch (ResolutionException | GeneralSecurityException | JsonLdError ex) {
+
+				if (log.isWarnEnabled()) log.warn("Unable to verify LD signature: " + ex.getMessage(), ex);
+				response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unable to verify LD signature: " + ex.getMessage());
+				response.getWriter().close();
+				return;
+			}
+
+			// add Verifiable Credential
+
 			vcs.add(vc);
+
+			// DID Auth Verifiable Credential?
 
 			String authenticatedDid = Interpretation.interpretDidAuthCredential(vc);
 
