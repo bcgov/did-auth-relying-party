@@ -63,15 +63,13 @@ public class CallbackServlet extends HttpServlet {
 
 			// DID Auth Verifiable Credential?
 
-			if (authenticatedDid == null) {
+			if (Interpretation.interpretDidAuthCredential(vc) != null) {
 
 				authenticatedDid = Interpretation.interpretDidAuthCredential(vc);
+			} else {
 
-				if (authenticatedDid == null) {
-
-					VerifiableCredential authorization = vc;
-					authorizations.add(authorization);
-				}
+				VerifiableCredential authorization = vc;
+				authorizations.add(authorization);
 			}
 		}
 

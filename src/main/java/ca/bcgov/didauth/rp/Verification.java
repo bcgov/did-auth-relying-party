@@ -57,7 +57,7 @@ public class Verification {
 		if (log.isDebugEnabled()) log.debug("LD signature type: " + signatureType);
 
 		ResolutionResult resolutionResult = clientUniResolver.resolve(issuer.toString());
-		DIDDocument didDocument = resolutionResult.getDidDocument();
+		DIDDocument didDocument = resolutionResult == null ? null : resolutionResult.getDidDocument();
 		if (didDocument == null) throw new ResolutionException("No resolution result for DID " + issuer.toString());
 
 		List<PublicKey> didPublicKeys = new ArrayList<PublicKey> ();
