@@ -62,7 +62,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 
 **Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
-**Org Delegate DID:** `did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI`
+**Org Delegate DID:** `did:v1:test:nym:UxYjr6F3hqwiF3yffplpcsV3pXSWSzVQ2396WT65e2E`
 
 	{
 		"@context" : [ "https://w3id.org/credentials/v1", "https://w3id.org/security/v1" ],
@@ -71,7 +71,7 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 		"issued" : "2018-03-15",
 		"claim" : {
 			"id" : "did:sov:1234567890",
-			"management" : "did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI"
+			"management" : "did:v1:test:nym:UxYjr6F3hqwiF3yffplpcsV3pXSWSzVQ2396WT65e2E"
 		},
 		"signature" : {
 			"type" : "Ed25519Signature2018",
