@@ -4,7 +4,7 @@ import fi.trustnet.verifiablecredentials.VerifiableCredential;
 
 public class Interpretation {
 
-	static String interpretDidAuthCredential(VerifiableCredential vc) {
+	public static String interpretDidAuthCredential(VerifiableCredential vc) {
 
 		if (vc.getIssuer() == null || vc.getSubject() == null) return null;
 
@@ -15,7 +15,7 @@ public class Interpretation {
 		return vc.getSubject();
 	}
 
-	static VerifiableCredential interpretCredential(VerifiableCredential vc) {
+	public static VerifiableCredential interpretCredential(VerifiableCredential vc) {
 
 		if (vc.getIssuer() == null || vc.getSubject() == null) return null;
 

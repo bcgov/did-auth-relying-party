@@ -7,19 +7,21 @@ This is simply a self-asserted Verifiable Credential by an identity owner to aut
 **Admin DID:** `did:btcr:xs95-wzv8-qqte-jz88`
 
 	{
-		"type": ["Credential", "DidAuthCredential"],
-		"issuer": "did:btcr:xs95-wzv8-qqte-jz88",
-		"issued": "2010-01-01",
-		"claim": {
-			"id": "did:btcr:xs95-wzv8-qqte-jz88",
-			"publicKey": "did:btcr:xs95-wzv8-qqte-jz88#keys-1"
+		"@context" : [ "https://w3id.org/credentials/v1", "https://w3id.org/security/v1" ],
+		"type" : [ "Credential", "DidAuthCredential" ],
+		"issuer" : "did:btcr:xs95-wzv8-qqte-jz88",
+		"issued" : "2018-03-15",
+		"claim" : {
+			"id" : "did:btcr:xs95-wzv8-qqte-jz88",
+			"publicKey" : "did:btcr:xs95-wzv8-qqte-jz88#key-1"
 		},
-		"proof": {
-			"type": "Secp256k1Signature2018",
-			"creator": "did:btcr:xs95-wzv8-qqte-jz88#keys-1",
-			"created": "2018-01-01T21:19:10Z",
-			"nonce": "...",
-			"signatureValue": "..."
+		"signature" : {
+			"type" : "EcdsaKoblitzSignature2016",
+			"creator" : "did:btcr:xs95-wzv8-qqte-jz88#key-1",
+			"created" : "2018-03-15T00:00:00Z",
+			"domain" : null,
+			"nonce" : "54c83860-a79b-4523-88f9-ad420c669c12",
+			"signatureValue" : "MEUCIQC8JxrztioLbR5dfQwLBPnKMfE6RObSU9jpAJUr+YBxSQIgCbTbiabx8DMeKKgW1BfT+c+U9fy7DnhYjfH1xGFU8GY="
 		}
 	}
 
@@ -27,26 +29,28 @@ This is simply a self-asserted Verifiable Credential by an identity owner to aut
 
 This is a Verifiable Credential issued by VON that an "Org Manager" is authorized to represent an "Org" with capability "management".
 
-**TheOrgBook DID:** `did:sov:0000000000`
+**TheOrgBook DID:** `did:sov:MDBKSD4Cm5EhhXWzTynube`
 
 **Org DID:** `did:sov:1234567890`
 
 **Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
 	{
-		"type": ["Credential"],
-		"issuer": "did:sov:0000000000",
-		"issued": "2010-01-01",
-		"claim": {
-			"id": "did:sov:1234567890",
-			"management": "did:sov:DavnUKB3kjn7VmVZXzEDL7"
+		"@context" : [ "https://w3id.org/credentials/v1", "https://w3id.org/security/v1" ],
+		"type" : [ "Credential" ],
+		"issuer" : "did:sov:MDBKSD4Cm5EhhXWzTynube",
+		"issued" : "2018-03-15",
+		"claim" : {
+			"id" : "did:sov:1234567890",
+			"management" : "did:sov:DavnUKB3kjn7VmVZXzEDL7"
 		},
-		"proof": {
-			"type": "Ed25519Signature2018",
-			"created": "2018-01-01T21:19:10Z",
-			"creator": "did:sov:0000000000#keys-1",
-			"nonce": "...",
-			"signatureValue": "..."
+		"signature" : {
+			"type" : "Ed25519Signature2018",
+			"creator" : "did:sov:MDBKSD4Cm5EhhXWzTynube#key-1",
+			"created" : "2018-03-15T00:00:00Z",
+			"domain" : null,
+			"nonce" : "d1458980-d63b-4c3c-aad9-f1d182f5b399",
+			"signatureValue" : "CGG+Isa9QtpqS9NuKTATBipY2cb50fFlCKHyLPV+Z136m304IqHjWnP9M0QM6i4ilYuUcS2ibOJtjWPHfmk7AQ=="
 		}
 	}
 
@@ -58,21 +62,23 @@ This is a Verifiable Credential issued by an "Org Manager" that an "Org Delegate
 
 **Org Manager DID:** `did:sov:DavnUKB3kjn7VmVZXzEDL7`
 
-**Org Delegate DID:** `did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI`
+**Org Delegate DID:** `did:v1:test:nym:UxYjr6F3hqwiF3yffplpcsV3pXSWSzVQ2396WT65e2E`
 
 	{
-		"type": ["Credential"],
-		"issuer": "did:sov:DavnUKB3kjn7VmVZXzEDL7",
-		"issued": "2010-01-01",
-		"claim": {
-			"id": "did:sov:1234567890",
-			"management": "did:v1:test:nym:rZdPg5VF6SqrVuEYEHAuDaeikkA2D8QBLRJQRnhz3pI"
+		"@context" : [ "https://w3id.org/credentials/v1", "https://w3id.org/security/v1" ],
+		"type" : [ "Credential" ],
+		"issuer" : "did:sov:DavnUKB3kjn7VmVZXzEDL7",
+		"issued" : "2018-03-15",
+		"claim" : {
+			"id" : "did:sov:1234567890",
+			"management" : "did:v1:test:nym:UxYjr6F3hqwiF3yffplpcsV3pXSWSzVQ2396WT65e2E"
 		},
-		"proof": {
-			"type": "Ed25519Signature2018",
-			"created": "2018-01-01T21:19:10Z",
-			"creator": "did:sov:DavnUKB3kjn7VmVZXzEDL7#keys-1",
-			"nonce": "c0ae1c8e-c7e7-469f-b252-86e6a0e7387e",
-			"signatureValue": "..."
+		"signature" : {
+			"type" : "Ed25519Signature2018",
+			"creator" : "did:sov:DavnUKB3kjn7VmVZXzEDL7#key-1",
+			"created" : "2018-03-15T00:00:00Z",
+			"domain" : null,
+			"nonce" : "17eb96ae-ccef-4500-bb5b-01e92a93abe7",
+			"signatureValue" : "YuYSql92rC1PloE3TNSD/4LJ15I3zbbMtYB4D6BSWdnuvOJBX1WobbDC0/tAcuJ0xWkL47DpOibJXFsKIjlsDw=="
 		}
 	}
