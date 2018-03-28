@@ -3,6 +3,8 @@ package ca.bcgov.didauth.rp;
 import java.net.URI;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bitcoinj.core.ECKey;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import info.weboftrust.ldsignatures.validator.LdValidator;
 import info.weboftrust.ldsignatures.validator.RsaSignature2017LdValidator;
 import uniresolver.ResolutionException;
 import uniresolver.client.ClientUniResolver;
+import uniresolver.did.Authentication;
 import uniresolver.did.DIDDocument;
 import uniresolver.did.PublicKey;
 import uniresolver.result.ResolutionResult;
@@ -39,12 +42,15 @@ public class Verification {
 
 		URI issuer = vc.getIssuer();
 		if (log.isDebugEnabled()) log.debug("Issuer DID: " + issuer.toString());
+		if (issuer == null) {
+
+			throw new GeneralSecurityException("No issuer found on Verifiable Credential.");
+		}
 
 		LdSignature ldSignature = vc.getLdSignature();
 		if (ldSignature == null) {
 
-			if (log.isWarnEnabled()) log.warn("No LD signature found on Verifiable Credential.");
-			return false;
+			throw new GeneralSecurityException("No LD signature found on Verifiable Credential.");
 		}
 
 		String signatureType = ldSignature.getType();
@@ -52,21 +58,33 @@ public class Verification {
 
 		ResolutionResult resolutionResult = clientUniResolver.resolve(issuer.toString());
 		DIDDocument didDocument = resolutionResult.getDidDocument();
+		if (didDocument == null) throw new ResolutionException("No resolution result for DID " + issuer.toString());
+
+		List<PublicKey> didPublicKeys = new ArrayList<PublicKey> ();
+		if (didDocument.getPublicKeys() != null) didPublicKeys.addAll(didDocument.getPublicKeys());
+		if (didDocument.getAuthentications() != null) {
+
+			for (Authentication didAuthentication : didDocument.getAuthentications()) {
+
+				if (didAuthentication.getPublicKeys() != null) didPublicKeys.addAll(didAuthentication.getPublicKeys());
+			}
+		}
+		if (log.isDebugEnabled()) log.debug("DID public keys: " + didPublicKeys);
 
 		LdValidator<?> ldValidator = null;
 		Object verifyingKey = null;
 
 		if (SignatureSuites.SIGNATURE_SUITE_ED25519SIGNATURE2018.getTerm().equals(signatureType)) {
 
-			for (PublicKey didPublicKey : didDocument.getPublicKeys()) if (verifyingKey == null) verifyingKey = Ed25519VerificationKey2018Loader.get().verificationKey(didPublicKey);
+			for (PublicKey didPublicKey : didPublicKeys) if (verifyingKey == null) verifyingKey = Ed25519VerificationKey2018Loader.get().verificationKey(didPublicKey);
 			ldValidator = new Ed25519Signature2018LdValidator((byte[]) verifyingKey);
 		} else if (SignatureSuites.SIGNATURE_SUITE_ECDSAKOBLITZSIGNATURE2016.getTerm().equals(signatureType)) {
 
-			for (PublicKey didPublicKey : didDocument.getPublicKeys()) if (verifyingKey == null) verifyingKey = Secp256k1VerificationKey2018Loader.get().verificationKey(didPublicKey);
+			for (PublicKey didPublicKey : didPublicKeys) if (verifyingKey == null) verifyingKey = Secp256k1VerificationKey2018Loader.get().verificationKey(didPublicKey);
 			ldValidator = new EcdsaKoblitzSignature2016LdValidator((ECKey) verifyingKey);
 		} else if (SignatureSuites.SIGNATURE_SUITE_RSASIGNATURE2017.getTerm().equals(signatureType)) {
 
-			for (PublicKey didPublicKey : didDocument.getPublicKeys()) if (verifyingKey == null) verifyingKey = RsaVerificationKey2018Loader.get().verificationKey(didPublicKey);
+			for (PublicKey didPublicKey : didPublicKeys) if (verifyingKey == null) verifyingKey = RsaVerificationKey2018Loader.get().verificationKey(didPublicKey);
 			ldValidator = new RsaSignature2017LdValidator((RSAPublicKey) verifyingKey);
 		}
 

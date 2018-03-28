@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,7 @@ public class CallbackServlet extends HttpServlet {
 		ArrayList<LinkedHashMap<String, Object>> jsonArray = (ArrayList<LinkedHashMap<String, Object>>) JsonUtils.fromReader(request.getReader());
 		if (log.isInfoEnabled()) log.info("JSON:" + jsonArray);
 
+		String authenticatedDid = null;
 		ArrayList<VerifiableCredential> vcs = new ArrayList<VerifiableCredential> ();
 		ArrayList<VerifiableCredential> authorizations = new ArrayList<VerifiableCredential> ();
 
@@ -61,21 +63,41 @@ public class CallbackServlet extends HttpServlet {
 
 			// DID Auth Verifiable Credential?
 
-			String authenticatedDid = Interpretation.interpretDidAuthCredential(vc);
+			if (authenticatedDid == null) {
 
-			if (authenticatedDid != null) {
+				authenticatedDid = Interpretation.interpretDidAuthCredential(vc);
 
-				request.getSession().setAttribute("authenticatedDid", authenticatedDid);
-			} else {
+				if (authenticatedDid == null) {
 
-				VerifiableCredential authorization = vc;
-				authorizations.add(authorization);
+					VerifiableCredential authorization = vc;
+					authorizations.add(authorization);
+				}
 			}
 		}
 
-		// done
+		// set session attributes
 
+		if (authenticatedDid != null) request.getSession().setAttribute("authenticatedDid", authenticatedDid);
 		request.getSession().setAttribute("vcs", vcs);
 		request.getSession().setAttribute("authorizations", authorizations);
+
+		// write response
+
+		LinkedHashMap<String, Object> jsonLdObject = new LinkedHashMap<String, Object> ();
+
+		if (authenticatedDid != null) jsonLdObject.put("authenticatedDid", authenticatedDid);
+
+		LinkedList<Object> jsonVcs = new LinkedList<Object> ();
+		for (VerifiableCredential vc : vcs) jsonVcs.add(vc.getJsonLdObject());
+		jsonLdObject.put("vcs", jsonVcs);
+
+		LinkedList<Object> jsonAuthorizations = new LinkedList<Object> ();
+		for (VerifiableCredential authorization : authorizations) jsonAuthorizations.add(authorization.getJsonLdObject());
+		jsonLdObject.put("authorizations", jsonAuthorizations);
+
+		response.setContentType("application/json");
+		response.getWriter().println(JsonUtils.toString(jsonLdObject));
+		response.getWriter().flush();
+		response.getWriter().close();
 	}
 }
